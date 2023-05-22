@@ -11,14 +11,11 @@ public class Board : MonoBehaviour
         joystick = GameObject.Find("Board Joystick").GetComponent<FloatingJoystick>();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if(collision.gameObject.tag == "Boundary")
-        //    transform.position -= new Vector3(0.1f * joystick.Horizontal, 0, 0);
-    }
-
     void Update()
     {
         transform.position += new Vector3(0.1f * joystick.Horizontal, 0, 0);
+
+        if (transform.position.x < -9.2) transform.position = new Vector2(-9.2f, -3.5f);
+        else if (transform.position.x > 9.2) transform.position = new Vector2(9.2f, -3.5f);
     }
 }
