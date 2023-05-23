@@ -9,6 +9,7 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
+        GamePub.Start();
         rigidbody = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
     }
@@ -24,7 +25,7 @@ public class Ball : MonoBehaviour
             var block = collision.gameObject.GetComponent<Block>();
             renderer.color = block.renderer.color;
 
-            if (--block.cnt == 0) Destroy(collision.gameObject);
+            if (--block.cnt == 0) { Destroy(collision.gameObject); GamePub.Check(); }
             else block.renderer.color = new Color(block.renderer.color.r, block.renderer.color.g, block.renderer.color.b, (float)block.cnt / block.num);
         }
     }
@@ -33,8 +34,7 @@ public class Ball : MonoBehaviour
     {
         if(transform.position.y < -5)
         {
-            GameObject.Find("Canvas").transform.Find("Fail").gameObject.active = true;
-            Time.timeScale = 0;
+            GamePub.Fail();
         }
     }
 }
