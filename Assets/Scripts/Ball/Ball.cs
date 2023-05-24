@@ -6,12 +6,13 @@ public class Ball : MonoBehaviour
 {
     Rigidbody2D rigidbody;
     SpriteRenderer renderer;
+    int blockNum;
 
     void Start()
     {
-        GamePub.Start();
         rigidbody = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
+        blockNum = GameObject.Find("Block").transform.childCount;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -25,8 +26,17 @@ public class Ball : MonoBehaviour
             var block = collision.gameObject.GetComponent<Block>();
             renderer.color = block.renderer.color;
 
-            if (--block.cnt == 0) { Destroy(collision.gameObject); GamePub.Check(); }
-            else block.renderer.color = new Color(block.renderer.color.r, block.renderer.color.g, block.renderer.color.b, (float)block.cnt / block.num);
+            if (--block.cnt > 0) 
+                block.renderer.color = new Color(block.renderer.color.r, block.renderer.color.g, block.renderer.color.b, (float)block.cnt / block.num);
+            else
+            {
+                Destroy(collision.gameObject);
+                if (--blockNum == 0)
+                {
+                    GameObject.Find("Canvas").transform.Find("Win").gameObject.active = true;
+                    Time.timeScale = 0;
+                }
+            }
         }
     }
 
@@ -34,7 +44,8 @@ public class Ball : MonoBehaviour
     {
         if(transform.position.y < -5)
         {
-            GamePub.Fail();
+            GameObject.Find("Canvas").transform.Find("Fail").gameObject.active = true;
+            Time.timeScale = 0;
         }
     }
 }
