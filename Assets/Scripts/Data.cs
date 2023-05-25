@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-    public static int nowIndex;
-    public static int maxIndex;
-    public static int deathNum;
-    public static int blockNum;
+    public static int nowIndex = 0;
+    public static int deathNum = 0;
+    public static int blockNum = 0;
 }
