@@ -8,7 +8,7 @@ public class Board : MonoBehaviour
 
     void Start()
     {
-        joystick = GameObject.Find("Board Joystick").GetComponent<FloatingJoystick>();
+        joystick = GameObject.Find("BoardJoystick").GetComponent<FloatingJoystick>();
     }
 
     void Update()
