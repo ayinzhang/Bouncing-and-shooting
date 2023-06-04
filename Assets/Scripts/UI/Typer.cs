@@ -33,7 +33,7 @@ public class Typer : MonoBehaviour
     {
         obj = GameObject.Find("GameObject");
         obj.active = false;
-        character = gameObject.GetComponent<Text>();
+        character = GetComponent<Text>();
         audioSource = GameObject.Find("EffectPlayer").GetComponent<AudioSource>();
         StartCoroutine("StartTyper");
     }
